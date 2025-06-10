@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head></head>
+  <body>
+    <style>
+      #container {
+        height: 200vh;
+        width: 100vw;
+        font-size: 50px;
+      }
+      #htmlctrl {
+        display: inline-block;
+        white-space: nowrap;
+      }
+      input[type=radio] {
+        transform: scale(5);
+      }
+    </style>
+    <div id="container">
+      <h1>overscroll-behavior</h1>
+      <div id="htmlctrl">html
+        <input type="radio" id="html_auto" name="htmlob">
+        <label for="html_auto">auto</label>
+        <input type="radio" id="html_contain" name="htmlob">
+        <label for="html_contain">contain</label>
+        <input type="radio" id="html_none" name="htmlob">
+        <label for="html_none">none</label>
+      </div>
+      <br>
+      <br>
+      <div id="bodyctrl">body
+        <input type="radio" id="body_auto" name="bodyob">
+        <label for="body_auto">auto</label>
+        <input type="radio" id="body_contain" name="bodyob">
+        <label for="body_contain">contain</label>
+        <input type="radio" id="body_none" name="bodyob">
+        <label for="body_none">none</label>
+      </div>
+    </div>
+    <script>
+      const htmlctrl = document.getElementById("htmlctrl");
+      const bodyctrl = document.getElementById("bodyctrl");
+
+      function configure(ctrl) {
+        const ctrls = ctrl.querySelectorAll("input");
+        const ctrltarget = ctrl.id.substring(0, 4) === "html" ? document.documentElement : document.body;
+
+        for (let control of ctrls) {
+          control.addEventListener("change", () => {
+            const control_value = control.id.substring(5);
+            ctrltarget.style.overscrollBehavior = control_value;
+          });
+        }
+      }
+
+      configure(htmlctrl);
+      configure(bodyctrl);
+    </script>
+  </body>
+</html>
