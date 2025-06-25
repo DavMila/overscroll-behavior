@@ -3,15 +3,12 @@
   <head></head>
   <body>
     <style>
-      body {
-        overflow: hidden;
-      }
       #container {
         height: 200vh;
         width: 100vw;
         font-size: 50px;
       }
-      #htmlctrl {
+      #htmlctrl, #bodyctrl {
         display: inline-block;
         white-space: nowrap;
       }
@@ -39,12 +36,28 @@
         <input type="radio" id="body_none" name="bodyob">
         <label for="body_none">none</label>
       </div>
+
+    <h1>overflow</h1>
+      <div id="htmlovfctrl">html
+        <input type="radio" id="htmlovf_auto" name="htmlovf">
+        <label for="html_auto">auto</label>
+        <input type="radio" id="htmlovf_hidden" name="htmlovf">
+        <label for="html_hidden">hidden</label>
+      </div>
+      <br>
+      <br>
+      <div id="bodyovfctrl">body
+        <input type="radio" id="bodyovf_auto" name="bodyovf">
+        <label for="body_auto">auto</label>
+        <input type="radio" id="bodyovf_hidden" name="bodyovf">
+        <label for="body_hidden">hidden</label>
+      </div>
     </div>
     <script>
       const htmlctrl = document.getElementById("htmlctrl");
       const bodyctrl = document.getElementById("bodyctrl");
 
-      function configure(ctrl) {
+      function configureOverscrollBehavior(ctrl) {
         const ctrls = ctrl.querySelectorAll("input");
         const ctrltarget = ctrl.id.substring(0, 4) === "html" ? document.documentElement : document.body;
 
@@ -56,8 +69,26 @@
         }
       }
 
-      configure(htmlctrl);
-      configure(bodyctrl);
+      configureOverscrollBehavior(htmlctrl);
+      configureOverscrollBehavior(bodyctrl);
+
+      const htmlovfctrl = document.getElementById("htmlovfctrl");
+      const bodyovfctrl = document.getElementById("bodyovfctrl");
+
+      function configureOverflow(ctrl) {
+        const ctrls = ctrl.querySelectorAll("input");
+        const ctrltarget = ctrl.id.substring(0, 4) === "html" ? document.documentElement : document.body;
+
+        for (let control of ctrls) {
+          control.addEventListener("change", () => {
+            const control_value = control.id.substring(8);
+            ctrltarget.style.overflow = control_value;
+          });
+        }
+      }
+
+      configureOverflow(htmlovfctrl);
+      configureOverflow(bodyovfctrl);
     </script>
   </body>
 </html>
